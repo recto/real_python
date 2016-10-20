@@ -66,13 +66,12 @@ def add():
     Add a post to the blog.
     """
     title = request.form['title']
-    past = request.form['post']
+    post = request.form['post']
     if not title or not post:
         flash("All fields are required. Please try again.")
     else:
         g.db = connect_db()
-        cur = g.db.execute('insert into posts (title, post) values (?, ?)', 
-                [title, post])
+        cur = g.db.execute('insert into posts (title, post) values (?, ?)', [title, post])
         g.db.commit()
         g.db.close()
         flash("New entry was successfully posted!")
