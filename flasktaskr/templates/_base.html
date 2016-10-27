@@ -3,11 +3,11 @@
     <head>
         <title>Wlcome to FlaskTaskr!1</title>
         <link rel="stylesheet"
-              href="{{ url_for('static', filename='css/main.css') }} />
+              href="{{ url_for('static', filename='css/main.css') }}" />
     </head>
     <body>
         <div class="page">
-            {% for mesage in get_flashed_messags() %}
+            {% for mesage in get_flashed_messages() %}
                 <div class="flash">{{ message }}</div>
             {% endfor %}
 
