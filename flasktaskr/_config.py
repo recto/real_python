@@ -13,5 +13,8 @@ PASSWORD = 'admin'
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'my_precious'
 
-# defin the full path for the database
+# define the full path for the database
 DATABASE_PATH = os.path.join(basedir, DATABASE)
+
+# the database url
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_PATH

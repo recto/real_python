@@ -4,6 +4,9 @@ FlaskTaskr Models with SQLAlchemy
 from views import db
 
 class Task(db.Model):
+    """
+    Define Task model.
+    """
     __tablename__ = "tasks"
 
     task_id = db.Column(db.Integer, primary_key=True)
@@ -13,12 +16,16 @@ class Task(db.Model):
     status = db.Column(db.Integer)
 
     def __init__(self, name, due_date, priority, status):
+        """
+        constructor
+        """
         self.name = name
         self.due_date = due_date
         self.priority = priority
         self.status = status
 
     def __repr__(self):
+        """
+        Represent method.
+        """
         return '<name {0}'.format(self.name)
-
-
