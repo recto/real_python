@@ -7,6 +7,7 @@ from functools import wraps
 from flask import Flask, flash, redirect, render_template, \
         request, session, url_for, g
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 
 
@@ -41,16 +42,20 @@ def logout():
 @app.route('/', methods=['GET', 'POST'])
 def login():
     """ return login page """
+    error = None
+    form = LoginForm(request.form)
     if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME'] \
-                or request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid Credentials. Please try again.'
-            return render_template('login.html', error=error)
+        if form.validate_on_submit():
+            user = User.query.filter_by(name=request.form['name']).first()
+            if user is not None and user.password == request.form['password']:
+                session['logged_in'] = True
+                flash('Welcome')
+                return redirect(url_for('tasks'))
+            else:
+                error = 'Invalid username or password.'
         else:
-            session['logged_in'] = True
-            flash('Welcome')
-            return redirect(url_for('tasks'))
-    return render_template('login.html')
+            error = 'Both Fields are required.'
+    return render_template('login.html', form=form, error=error)
 
 @app.route('/tasks/')
 @login_required
@@ -79,6 +84,8 @@ def new_task():
             form.name.data,
             form.due_date.data,
             form.priority.data,
+            datetime.datetime.utcnow(),
+            '1',
             '1'
         )
         db.session.add(new_task)

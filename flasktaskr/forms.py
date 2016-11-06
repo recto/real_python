@@ -1,7 +1,7 @@
 """
 Task Form module
 """
-from flask_wtf import FlaskForm, Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, IntegerField, \
         SelectField, PasswordField
 from wtforms.validators import DataRequired, Length, EqualTo
@@ -27,7 +27,7 @@ class AddTaskForm(FlaskForm):
     )
     status = IntegerField('Status')
 
-class RegisterForm(Form):
+class RegisterForm(FlaskForm):
     """
     Registration Form
     """
@@ -49,7 +49,7 @@ class RegisterForm(Form):
                     EqualTo('password', message='Passwords must match')]
     )
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     """
     Login Form
     """
