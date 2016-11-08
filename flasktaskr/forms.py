@@ -4,7 +4,7 @@ Task Form module
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, IntegerField, \
         SelectField, PasswordField
-from wtforms.validators import DataRequired, Length, EqualTo
+from wtforms.validators import DataRequired, Length, EqualTo, Email
 
 class AddTaskForm(FlaskForm):
     """
@@ -37,7 +37,7 @@ class RegisterForm(FlaskForm):
     )
     email = StringField(
         'Email',
-        validators=[DataRequired(), Length(min=6, max=40)]
+        validators=[DataRequired(), Email(), Length(min=6, max=40)]
     )
     password = PasswordField(
         'Password',
